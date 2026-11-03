@@ -14,7 +14,6 @@ app.get('/req', (req, res) => {
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
-
 const html = `
 <!DOCTYPE html>
 <html>
