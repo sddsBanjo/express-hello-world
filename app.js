@@ -22,6 +22,24 @@ app.get('/tico', (req, res) => {
   res.send('Teco');
 })
 
+// Exercício 3
+const pokemons = [
+  { 'Posição': 1, 'Pokémon': 'Caterpie' },
+  { 'Posição': 2, 'Pokémon': 'Pidgeotto' },
+  { 'Posição': 3, 'Pokémon': 'Bulbasaur' },
+  { 'Posição': 4, 'Pokémon': 'Charmander' },
+  { 'Posição': 5, 'Pokémon': 'Squirtle' },
+  { 'Posição': 6, 'Pokémon': 'Krabby' },
+  { 'Posição': 7, 'Pokémon': 'Primeape' },
+  { 'Posição': 8, 'Pokémon': 'Muk' },
+  { 'Posição': 9, 'Pokémon': 'Tauros' },
+  { 'Posição': 10, 'Pokémon': 'Mr. Mime' }
+];
+
+app.get('/pokemons', (req, res) => {
+  res.json(pokemons);
+})
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 const html = `
