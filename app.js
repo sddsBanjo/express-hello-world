@@ -40,6 +40,43 @@ app.get('/pokemons', (req, res) => {
   res.json(pokemons);
 })
 
+// Exercício 4
+let series = [
+  {
+    "nome": "LEGO Ninjago: Masters of Spinjitzu",
+    "anoEstreia": 2011,
+    "avaliacaoIMDB": 7.5
+  },
+  {
+    "nome": "La Casa de Papel",
+    "anoEstreia": 2017,
+    "avaliacaoIMDB": 8.2
+  },
+  {
+    "nome": "American Horror Story",
+    "anoEstreia": 2011,
+    "avaliacaoIMDB": 8.0
+  }
+];
+
+app.get('/series', (req, res) => {
+  res.json(series);
+})
+
+app.post('/series', (req, res) => {
+  const { nome, anoEstreia, avaliacaoIMDB } = req.body;
+  
+  const novaSerie = {
+    nome,
+    anoEstreia,
+    avaliacaoIMDB
+  };
+
+  series.push(novaSerie);
+
+  res.status(201).json(novaSerie);
+})
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 const html = `
