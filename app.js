@@ -77,6 +77,11 @@ app.post('/series', (req, res) => {
   res.status(201).json(novaSerie);
 })
 
+// Exercício 5
+app.get('/erro', (req, res) => {
+  throw new Error('Erro simulado em produção!');
+})
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 const html = `
