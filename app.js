@@ -82,6 +82,49 @@ app.get('/erro', (req, res) => {
   throw new Error('Erro simulado em produção!');
 })
 
+// Exercício 6
+const https = require('https');
+
+app.get('/pokemon/:nome', (req, res) => {
+  const nome = req.params.nome.toLowerCase();
+  const url = `https://pokeapi.co/api/v2/pokemon/${nome}`;
+
+  https.get(url, { headers: { 'User-Agent': 'ExpressApp' } }, (apiRes) => {
+    if (apiRes.statusCode === 404) {
+      return res.status(404).json({ mensagem: 'Pokémon não encontrado.' });
+    }
+
+    if (apiRes.statusCode !== 200) {
+      return res.status(apiRes.statusCode).json({ mensagem: 'Erro na PokéAPI.' });
+    }
+
+    let rawData = '';
+    apiRes.on('data', (chunk) => {
+      rawData += chunk;
+    });
+
+    apiRes.on('end', () => {
+      try {
+        const dados = JSON.parse(rawData);
+        res.json({
+          id: dados.id,
+          nome: dados.name,
+          altura: dados.height,
+          peso: dados.weight,
+          tipos: dados.types.map(t => t.type.name)
+        });
+      } catch (e) {
+        res.status(500).json({ mensagem: 'Erro ao ler os dados da PokéAPI.' });
+      }
+    });
+  }).on('error', (error) => {
+    res.status(500).json({
+      mensagem: 'Erro ao consultar a PokéAPI.',
+      detalhe: error.message
+    });
+  });
+});
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 const html = `
